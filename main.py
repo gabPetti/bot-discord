@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from openai import OpenAI
+from google import genai
 from discord import FFmpegPCMAudio
 import os
 from dotenv import load_dotenv
