@@ -1,5 +1,5 @@
 discord.py
 asyncio
 pynacl
-openai
+google-genai
 python-dotenv
