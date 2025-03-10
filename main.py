@@ -8,12 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 token = os.environ["TOKEN"]
-openaiToken = os.environ["OPENAI"]
+openaiToken = os.environ["AIKEY"]
 
-openaiClient = OpenAI(
-  api_key=openaiToken,
-  base_url="https://api.deepseek.com"
-)
+client = genai.Client(api_key=AIKEY)
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -24,17 +21,10 @@ class MyClient(discord.Client):
             await message.channel.send('bom dia patriota!')
 
         if message.content.startswith('$piada'):
-            completion = await openaiClient.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": "Conte uma piada boa em até 5 sentenças",
-                    },
-                ],
+            response = client.models.generate_content(
+                model="gemini-2.0-flash", contents="Conte uma piada boa em até 5 sentenças"
             )
-            print(completion.choices[0].message.content)
-            await message.channel.send(completion.choices[0].message.content)
+            await message.channel.send(response.text)
             
         
     async def on_voice_state_update(self, member, before, after):
