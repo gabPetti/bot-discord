@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 3. Run the code
 ```
-clear; python3
+clear; python ./main.py
 ```
 
 
