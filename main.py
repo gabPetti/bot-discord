@@ -1,9 +1,15 @@
 import discord
 import asyncio
+from openai import OpenAI
 from discord import FFmpegPCMAudio
 import os
 
 token = os.environ["TOKEN"]
+openaiToken = os.environ["OPENAI"]
+
+openaiClient = OpenAI(
+  api_key=openaiToken
+)
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -12,6 +18,20 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.content.startswith('$eae'):
             await message.channel.send('bom dia patriota!')
+
+        if message.content.startswith('$piada'):
+            completion = await openaiClient.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": "Conte uma piada boa em até 5 sentenças",
+                    },
+                ],
+            )
+            print(completion.choices[0].message.content)
+            await message.channel.send(completion.choices[0].message.content)
+            
         
     async def on_voice_state_update(self, member, before, after):
         # Check if the member joins a voice channel and matches the specific ID
