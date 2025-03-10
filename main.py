@@ -1,8 +1,9 @@
 import discord
 import asyncio
 from discord import FFmpegPCMAudio
+import os
 
-token = 'MTM0ODM1ODE3NDcwMDMzOTI5MQ.GBhZw6.mu8i-yvSYsOG8keUEnDXoHf9U1tlewC1Sn_-5M'
+token = os.environ["TOKEN"]
 
 class MyClient(discord.Client):
     async def on_ready(self):
