@@ -3,6 +3,9 @@ import asyncio
 from openai import OpenAI
 from discord import FFmpegPCMAudio
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 token = os.environ["TOKEN"]
 openaiToken = os.environ["OPENAI"]
