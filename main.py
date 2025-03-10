@@ -8,9 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 token = os.environ["TOKEN"]
-openaiToken = os.environ["AIKEY"]
+aikey = os.environ["AIKEY"]
 
-client = genai.Client(api_key=AIKEY)
+aiClient = genai.Client(api_key=aikey)
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -21,7 +21,7 @@ class MyClient(discord.Client):
             await message.channel.send('bom dia patriota!')
 
         if message.content.startswith('$piada'):
-            response = client.models.generate_content(
+            response = aiClient.models.generate_content(
                 model="gemini-2.0-flash", contents="Conte uma piada boa em até 5 sentenças"
             )
             await message.channel.send(response.text)
