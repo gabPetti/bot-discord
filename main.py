@@ -8,7 +8,8 @@ token = os.environ["TOKEN"]
 openaiToken = os.environ["OPENAI"]
 
 openaiClient = OpenAI(
-  api_key=openaiToken
+  api_key=openaiToken,
+  base_url="https://api.deepseek.com"
 )
 
 class MyClient(discord.Client):
