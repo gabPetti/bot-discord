@@ -16,7 +16,7 @@ It is required python 3 to run this software
 
 1. Clone the repository:
 ```
-git clone https://github.com/yourusername/discord-bot.git
+git clone https://github.com/gabPetti/bot-discord.git
 cd discord-bot
 ```
 
