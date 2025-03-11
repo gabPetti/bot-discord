@@ -5,6 +5,7 @@ from discord import FFmpegPCMAudio
 import os
 from dotenv import load_dotenv
 
+print('startin bot...')
 load_dotenv()
 
 token = os.environ["TOKEN"]
@@ -14,7 +15,10 @@ aiClient = genai.Client(api_key=aikey)
 
 class MyClient(discord.Client):
     async def on_ready(self):
+      try:
         print(f'Logged on as {self.user}!')
+      except Exception as e:
+        print(e)
 
     async def on_message(self, message):
         if message.content.startswith('$eae'):
@@ -25,8 +29,7 @@ class MyClient(discord.Client):
                 model="gemini-2.0-flash", contents="Conte uma piada boa em até 5 sentenças"
             )
             await message.channel.send(response.text)
-            
-        
+                    
     async def on_voice_state_update(self, member, before, after):
         # Check if the member joins a voice channel and matches the specific ID
         membro = member.name
@@ -44,7 +47,7 @@ class MyClient(discord.Client):
             await asyncio.sleep(10)  # Adjust time based on the length of the audio
             await voice_channel.disconnect()
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.message_content = True
 
 client = MyClient(intents=intents)
