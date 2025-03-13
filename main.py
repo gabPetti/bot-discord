@@ -5,6 +5,7 @@ from discord import FFmpegPCMAudio
 import os
 from dotenv import load_dotenv
 
+print('startin bot...')
 load_dotenv()
 
 token = os.environ["TOKEN"]
@@ -16,7 +17,10 @@ thigasPersona = 'Para isso, somente imite um cara de direita, que votou no bolso
 
 class MyClient(discord.Client):
     async def on_ready(self):
+      try:
         print(f'Logged on as {self.user}!')
+      except Exception as e:
+        print(e)
 
     async def on_message(self, message):
         if message.content.startswith('$eae'):
@@ -42,10 +46,7 @@ class MyClient(discord.Client):
             
         elif message.content.startswith('$'):
             await message.channel.send('escreve comando direito o comunista desgraçado')
-            
-        #elif message.content.startswith('$'):
-        #    await message.channel.send("escreve comando direito o comunista desgraçado")
-        
+                    
     async def on_voice_state_update(self, member, before, after):
         try:
             membro = member.name
@@ -67,7 +68,7 @@ class MyClient(discord.Client):
             await voice_channel.disconnect()
             
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.message_content = True
 
 client = MyClient(intents=intents)
