@@ -15,10 +15,27 @@ aiClient = genai.Client(api_key=aikey)
 
 thigasPersona = 'Para isso, somente imite um cara de direita, que votou no bolsonaro, gosta dos militares, canta hino pra pneu, nao gosta de nenhum movimento social, ama os estados unidos e esrael por causa da liberdade de expressao, e gosta do putin e trump. Além disso, escreva a mensagem falando "né pessual?" ao final de cada frase'
 
+def reward(member):
+    # Load JSON data from a file
+    with open("data.json", "r") as file:
+        data = json.load(file)
+
+    # Increase the 'give' field
+    if member not in data
+        data[member] = 10
+    else:
+        data[member] += 10
+
+    # Save updated data back to the file
+    with open("data.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    print("Updated successfully!")
+
 class MyClient(discord.Client):
     async def on_ready(self):
       try:
-        print(f'Logged on as {self.user}!')
+        print(f'Logged on as {self.name}!')
       except Exception as e:
         print(e)
 
@@ -31,18 +48,21 @@ class MyClient(discord.Client):
                 model="gemini-2.0-flash", contents=f'${message.content[6:]}. Conte essa piada em até 3 sentenças no maximo. {thigasPersona}. 🤣:flag_br::flag_us::flag_il::point_right::point_right:'
             )
             await message.channel.send(response.text)
+            reward(message.author.name)
         
         elif message.content.startswith('$fato'):
             response = aiClient.models.generate_content(
                 model="gemini-2.0-flash", contents=f'{message.content[5:]} . Conte o fato foda em até 3 sentenças no maximo, dando somente os fatos. Além disso, escreva a mensagem falando "né pessual?" ao final de cada frase'
             )
             await message.channel.send(response.text)
+            reward(message.author.name)
             
         elif message.content.startswith('$opine'):
             response = aiClient.models.generate_content(
                 model="gemini-2.0-flash", contents=f'{message.content[5:]} . Opine sobre esse tema em até 3 sentenças no maximo, dando somente sua opiniao. {thigasPersona}'
             )
             await message.channel.send(response.text)
+            reward(message.author.name)
             
         elif message.content.startswith('$'):
             await message.channel.send('escreve comando direito o comunista desgraçado')
