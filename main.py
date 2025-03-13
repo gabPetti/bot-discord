@@ -64,7 +64,24 @@ class MyClient(discord.Client):
             )
             await message.channel.send(response.text)
             reward(message.author.name)
+
+        elif message.content.startswith('$jumpscare'):
+            author = message.author
+            # search for the author's channel
+            if author.voice:
+                authorChannel = author.voice.channel
+                voice_channel = await authorChannel.connect()
+
+                audio = FFmpegPCMAudio('jumpscare.mp3')
+
+                voice_channel.play(audio)
+
+                await asyncio.sleep(5)
+                await voice_channel.disconnect()
             
+            else:
+                await message.channel.send('O alombado nao na call e quer dar susto nosoto')
+
         elif message.content == '$grana':
             with open("balance.json", "r") as file:
                 data = json.load(file)
