@@ -43,9 +43,29 @@ class MyClient(discord.Client):
                 model="gemini-2.0-flash", contents=f'{message.content[5:]} . Opine sobre esse tema em até 3 sentenças no maximo, dando somente sua opiniao. {thigasPersona}'
             )
             await message.channel.send(response.text)
+
+        elif message.content.startswith('$jumpscare'):
+            author = message.author
+            # search for the author's channel
+            if author.voice:
+                authorChannel = author.voice.channel
+                voice_channel = await authorChannel.connect()
+
+                audio = FFmpegPCMAudio('jumpscare.mp3')
+
+                voice_channel.play(audio)
+
+                await asyncio.sleep(5)
+                await voice_channel.disconnect()
+            
+            else:
+                await message.channel.send('O alombado nao na call e quer dar susto nosoto')
             
         elif message.content.startswith('$'):
             await message.channel.send('escreve comando direito o comunista desgraçado')
+
+
+
                     
     async def on_voice_state_update(self, member, before, after):
         try:
