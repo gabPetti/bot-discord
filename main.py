@@ -4,6 +4,7 @@ from google import genai
 from discord import FFmpegPCMAudio
 import os
 from dotenv import load_dotenv
+import json
 
 print('startin bot...')
 load_dotenv()
@@ -17,17 +18,17 @@ thigasPersona = 'Para isso, somente imite um cara de direita, que votou no bolso
 
 def reward(member):
     # Load JSON data from a file
-    with open("data.json", "r") as file:
+    with open("balance.json", "r") as file:
         data = json.load(file)
 
     # Increase the 'give' field
-    if member not in data
+    if member not in data:
         data[member] = 10
     else:
         data[member] += 10
 
     # Save updated data back to the file
-    with open("data.json", "w") as file:
+    with open("balance.json", "w") as file:
         json.dump(data, file, indent=4)
 
     print("Updated successfully!")
@@ -35,7 +36,7 @@ def reward(member):
 class MyClient(discord.Client):
     async def on_ready(self):
       try:
-        print(f'Logged on as {self.name}!')
+        print(f'Logged on as {self.user}!')
       except Exception as e:
         print(e)
 
@@ -64,6 +65,15 @@ class MyClient(discord.Client):
             await message.channel.send(response.text)
             reward(message.author.name)
             
+        elif message.content == '$grana':
+            with open("balance.json", "r") as file:
+                data = json.load(file)
+            
+            if message.author.name not in data:
+                await message.channel.send(f"tu eh pobre")
+            else:
+                await message.channel.send(f"saldo: {data[message.author.name]} pila")
+
         elif message.content.startswith('$'):
             await message.channel.send('escreve comando direito o comunista desgraçado')
                     
