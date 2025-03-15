@@ -113,11 +113,11 @@ class MyClient(discord.Client):
 
                 # Play the audio file
                 audio = FFmpegPCMAudio(fodidos[membro][0])
-                voice_channel.play(audio, after=await voice_channel.disconnect())
+                voice_channel.play(audio)
 
                 # Optionally, disconnect after a short duration
-                # await asyncio.sleep(10)  # Adjust time based on the length of the audio
-                # await voice_channel.disconnect()
+                await asyncio.sleep(fodidos[membro][1])  # Adjust time based on the length of the audio
+                await voice_channel.disconnect()
         except Exception as e:
             print("ocorreu um erro ao colocar o audio do jamas")
             await voice_channel.disconnect()
