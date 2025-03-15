@@ -69,15 +69,19 @@ class MyClient(discord.Client):
             author = message.author
             # search for the author's channel
             if author.voice:
-                authorChannel = author.voice.channel
-                voice_channel = await authorChannel.connect()
+                try:
+                    authorChannel = author.voice.channel
+                    voice_channel = await authorChannel.connect()
 
-                audio = FFmpegPCMAudio('jumpscare.mp3')
+                    audio = FFmpegPCMAudio('jumpscare.mp3')
 
-                voice_channel.play(audio)
+                    voice_channel.play(audio)
 
-                await asyncio.sleep(5)
-                await voice_channel.disconnect()
+                    await asyncio.sleep(5)
+                    await voice_channel.disconnect()
+                except Exception as e:
+                    print("ocorreu um erro ao colocar o audio do jumpscare: ", e)
+                    await voice_channel.disconnect()
             
             else:
                 await message.channel.send('O alombado nao na call e quer dar susto nosoto')
@@ -97,19 +101,23 @@ class MyClient(discord.Client):
     async def on_voice_state_update(self, member, before, after):
         try:
             membro = member.name
-            if (before.channel == None) and (membro == 'calicute_'):
+            fodidos = {
+                'calicute_': ['jamal.mp3', 10],
+                'senhor_jp': ['amigo-boi.mp3', 5]
+            }
+            if (before.channel == None) and (membro in fodidos):
                 
                 # Connect to the voice channel
                 channel = after.channel
                 voice_channel = await channel.connect()
 
                 # Play the audio file
-                audio = FFmpegPCMAudio('jamal.mp3')
-                voice_channel.play(audio)
+                audio = FFmpegPCMAudio(fodidos[membro][0])
+                voice_channel.play(audio, after=await voice_channel.disconnect())
 
                 # Optionally, disconnect after a short duration
-                await asyncio.sleep(10)  # Adjust time based on the length of the audio
-                await voice_channel.disconnect()
+                # await asyncio.sleep(10)  # Adjust time based on the length of the audio
+                # await voice_channel.disconnect()
         except Exception as e:
             print("ocorreu um erro ao colocar o audio do jamas")
             await voice_channel.disconnect()
