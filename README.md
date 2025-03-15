@@ -15,22 +15,30 @@ It is required python 3 to run this software
 ## Installation
 
 1. Clone the repository:
+
 ```
 git clone https://github.com/gabPetti/bot-discord.git
-cd discord-bot
+cd bot-discord
 ```
 
-2. Install dependencies:
+2. Create an virtual environment (optional):
+
+```
+python -m venv env
+source ./env/bin/activate
+```
+
+3. Install dependencies:
+
 ```
 pip install -r requirements.txt
 ```
 
-3. Run the code
-```
-clear; python ./main.py
-```
+4. Run the code
 
-
+```
+python main.py
+```
 
 ## Usage
 
