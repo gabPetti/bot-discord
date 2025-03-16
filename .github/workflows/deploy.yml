@@ -13,6 +13,11 @@ jobs:
 
       - name: Copy files with SSH
         uses: easingthemes/ssh-deploy@main
+
+      - name: Restart application
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.REMOTE_HOST}} "cd /home/ec2-user && ./rebuild_app.sh"
+
         env:
           SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
           ARGS: "-rltgoDzvO --delete"

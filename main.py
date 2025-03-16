@@ -42,7 +42,7 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         if message.content.startswith('$eae'):
-            await message.channel.send('bom dia patriota!')
+            await message.channel.send('bom dia, patriota!')
 
         elif message.content.startswith('$piada'):
             response = aiClient.models.generate_content(
