@@ -103,8 +103,8 @@ class MyClient(discord.Client):
             membro = member.name
             fodidos = {
                 'calicute_': ['jamal.mp3', 10],
-                'senhor_jp': ['amigo-boi.mp3', 5],
-                'palmadinha': ['olhaeleae.mp3', 5]
+                'senhor_jp': ['amigo-boi.mp3', 4],
+                'palmadinha': ['olhaeleae.mp3', 6]
             }
             if (before.channel == None) and (membro in fodidos):
                 
@@ -120,7 +120,7 @@ class MyClient(discord.Client):
                 await asyncio.sleep(fodidos[membro][1])  # Adjust time based on the length of the audio
                 await voice_channel.disconnect()
         except Exception as e:
-            print("ocorreu um erro ao colocar o audio do jamas")
+            print("ocorreu um erro ao colocar o audio do jamas:", e)
             await voice_channel.disconnect()
             
 
