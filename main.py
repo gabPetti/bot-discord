@@ -103,7 +103,7 @@ class MyClient(discord.Client):
             membro = member.name
             fodidos = {
                 'calicute_': ['jamal.mp3', 10],
-                'senhor_jp': ['amigo-boi.mp3', 5]
+                'senhor_jp': ['amigo-boi.mp3', 5],
                 'palmadinha': ['olhaeleae.mp3', 5]
             }
             if (before.channel == None) and (membro in fodidos):
