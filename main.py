@@ -43,7 +43,10 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         if message.content.startswith('$eae'):
-            dayhour = int(time.strftime("%H"))
+            dayhour = time.gmtime().tm_hour - 3
+            if dayhour < 0:
+                dayhour += 24
+
             if dayhour < 5:
                 await message.channel.send('vai dormir, patriota!')
             elif dayhour < 12:
