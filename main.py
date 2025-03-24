@@ -5,6 +5,7 @@ from discord import FFmpegPCMAudio
 import os
 from dotenv import load_dotenv
 import json
+import time
 
 print('startin bot...')
 load_dotenv()
@@ -42,7 +43,15 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         if message.content.startswith('$eae'):
-            await message.channel.send('bom dia, patriota!')
+            dayhour = int(time.strftime("%H"))
+            if dayhour < 5:
+                await message.channel.send('vai dormir, patriota!')
+            elif dayhour < 12:
+                await message.channel.send('bom dia, patriota!')
+            elif dayhour < 18:
+                await message.channel.send('boa tarde, patriota!')
+            else:
+                await message.channel.send('boa noite, patriota!')
 
         elif message.content.startswith('$piada'):
             response = aiClient.models.generate_content(
@@ -106,8 +115,7 @@ class MyClient(discord.Client):
                 'senhor_jp': ['amigo-boi.mp3', 4],
                 'palmadinha': ['olhaeleae.mp3', 6]
             }
-            if (before.channel == None) and (membro in fodidos):
-                
+            if (before.channel == None) and (membro in fodidos):                
                 # Connect to the voice channel
                 channel = after.channel
                 voice_channel = await channel.connect()
