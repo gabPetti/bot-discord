@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 import json
 import time
+import yt_dlp
 
 print('startin bot...')
 load_dotenv()
@@ -14,6 +15,9 @@ token = os.environ["TOKEN"]
 aikey = os.environ["AIKEY"]
 
 aiClient = genai.Client(api_key=aikey)
+
+ytdl = yt_dlp.YoutubeDL({'format': 'bestaudio'})
+voice_clients = {}
 
 thigasPersona = 'Para isso, somente imite um cara de direita, que votou no bolsonaro, gosta dos militares, canta hino pra pneu, nao gosta de nenhum movimento social, ama os estados unidos e esrael por causa da liberdade de expressao, e gosta do putin e trump. Além disso, escreva a mensagem falando "né pessual?" ao final de cada frase'
 
@@ -55,6 +59,7 @@ class MyClient(discord.Client):
                 await message.channel.send('boa tarde, patriota!')
             else:
                 await message.channel.send('boa noite, patriota!')
+            reward(message.author.name)
 
         elif message.content.startswith('$piada'):
             response = aiClient.models.generate_content(
@@ -106,6 +111,45 @@ class MyClient(discord.Client):
                 await message.channel.send(f"tu eh pobre")
             else:
                 await message.channel.send(f"saldo: {data[message.author.name]} pila")
+
+        elif message.content.startswith("$play"):
+            try:
+                voice_client = await message.author.voice.channel.connect()
+                voice_clients[voice_client.guild.id] = voice_client
+            except Exception as e:
+                print(e)
+
+            try:
+                url = message.content.split()[1]
+
+                loop = asyncio.get_event_loop()
+                data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=False))
+
+                song = data['url']
+                player = discord.FFmpegOpusAudio(song)
+
+                voice_clients[message.guild.id].play(player)
+            except Exception as e:
+                print(e)
+
+        elif message.content.startswith("$pause"):
+            try:
+                voice_clients[message.guild.id].pause()
+            except Exception as e:
+                print(e)
+
+        elif message.content.startswith("$resume"):
+            try:
+                voice_clients[message.guild.id].resume()
+            except Exception as e:
+                print(e)
+
+        elif message.content.startswith("$stop"):
+            try:
+                voice_clients[message.guild.id].stop()
+                await voice_clients[message.guild.id].disconnect()
+            except Exception as e:
+                print(e)
 
         elif message.content.startswith('$'):
             await message.channel.send('escreve comando direito o comunista desgraçado')
