@@ -2,6 +2,7 @@ import discord
 import asyncio
 from google import genai
 from discord import FFmpegPCMAudio
+from discord import utils
 import os
 from dotenv import load_dotenv
 import json
@@ -158,25 +159,26 @@ class MyClient(discord.Client):
         try:
             membro = member.name
             fodidos = {
-                'calicute_': ['jamal.mp3', 10],
-                'senhor_jp': ['amigo-boi.mp3', 4],
-                'palmadinha': ['olhaeleae.mp3', 6]
+                'calicute_': 'jamal.mp3',
+                'senhor_jp': 'amigo-boi.mp3',
+                'palmadinha': 'olhaeleae.mp3'
             }
             if (before.channel == None) and (membro in fodidos):                
                 # Connect to the voice channel
                 channel = after.channel
-                voice_channel = await channel.connect()
+                vc = await channel.connect()
 
                 # Play the audio file
-                audio = FFmpegPCMAudio(fodidos[membro][0])
-                voice_channel.play(audio)
+                audio = FFmpegPCMAudio(fodidos[membro])
+                vc.play(audio, after=lambda e: print("Finished playing"))
 
-                # Optionally, disconnect after a short duration
-                await asyncio.sleep(fodidos[membro][1])  # Adjust time based on the length of the audio
-                await voice_channel.disconnect()
+                while vc.is_playing():
+                    await asyncio.sleep(1)
+
+                await vc.disconnect()
         except Exception as e:
             print("ocorreu um erro ao colocar o audio do jamas:", e)
-            await voice_channel.disconnect()
+            await vc.disconnect()
             
 
 intents = discord.Intents.all()
