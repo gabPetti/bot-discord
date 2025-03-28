@@ -20,8 +20,8 @@ jobs:
           REMOTE_HOST: ${{secrets.REMOTE_HOST}}
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user"
-          EXCLUDE: "/dist/, /node_modules/, **.env, env, rebuild_app.sh, watcher.sh"
+          EXCLUDE: "/dist/, /node_modules/, **.env, env, watcher.sh"
 
       - name: Restart application
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.REMOTE_HOST}} "cd /home/ec2-user && ./rebuild_app.sh"
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.REMOTE_HOST}} "cd /home/ec2-user/bot-discord && ./rebuild.sh"
