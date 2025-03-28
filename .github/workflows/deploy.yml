@@ -24,4 +24,4 @@ jobs:
 
       - name: Restart application
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.REMOTE_HOST}} "cd /home/ec2-user/bot-discord && ./rebuild.sh"
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ec2-user@${{secrets.REMOTE_HOST}} "cd /home/ec2-user/bot-discord && ./rebuild.sh"
