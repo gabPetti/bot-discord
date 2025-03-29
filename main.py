@@ -42,7 +42,7 @@ def reward(member):
 class MyClient(discord.Client):
     async def on_ready(self):
       try:
-        print(f'Logged on as {self.user}!')
+        print(f'Logged on as {self.user}! [CI/CD Pipeline edition!]')
       except Exception as e:
         print(e)
 
