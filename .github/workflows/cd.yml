@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Delete old images
-      run: sudo docker rmi $(docker images -a -q)
+      run: sudo docker rmi $(docker images -a -q) || true
     - name: Pull Docker image
       run: sudo docker pull gabpetti/cicd-pipeline:latest
     - name: Delete Old docker container
