@@ -13,9 +13,9 @@ print('startin bot...')
 load_dotenv()
 
 token = os.getenv("TOKEN")
-aikey = os.getenv("AIKEY")
+# aikey = os.getenv("AIKEY")
 
-aiClient = genai.Client(api_key=aikey)
+# aiClient = genai.Client(api_key=aikey)
 
 ytdl = yt_dlp.YoutubeDL({'format': 'bestaudio'})
 voice_clients = {}
