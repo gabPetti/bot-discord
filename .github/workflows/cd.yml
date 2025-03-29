@@ -18,4 +18,7 @@ jobs:
     - name: Delete Old docker container
       run: sudo docker rm -f cicd-pipeline-container || true
     - name: Run Docker Container
-      run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container gabpetti/cicd-pipeline
+      env:
+        DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
+        AI_TOKEN: ${{secrets.AI_TOKEN}}
+      run: sudo docker run -e TOKEN='$DISCORD_TOKEN' -e AIKEY='$AI_TOKEN' -d -p 8080:8080 --name cicd-pipeline-container gabpetti/cicd-pipeline
