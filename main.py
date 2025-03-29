@@ -62,6 +62,10 @@ class MyClient(discord.Client):
                 await message.channel.send('boa noite, patriota!')
             reward(message.author.name)
 
+        elif message.content.startswith('$xinga'):
+            await message.channel.send(f"vai toma no cu {message.content.split()[1]}")
+            reward(message.author.name)
+
         elif message.content.startswith('$piada'):
             response = aiClient.models.generate_content(
                 model="gemini-2.0-flash", contents=f'${message.content[6:]}. Conte essa piada em até 3 sentenças no maximo. {thigasPersona}. 🤣:flag_br::flag_us::flag_il::point_right::point_right:'
