@@ -12,8 +12,8 @@ import yt_dlp
 print('startin bot...')
 load_dotenv()
 
-token = os.getenv["TOKEN"]
-aikey = os.getenv["AIKEY"]
+token = os.getenv("TOKEN")
+aikey = os.getenv("AIKEY")
 
 aiClient = genai.Client(api_key=aikey)
 
