@@ -4,3 +4,4 @@ pynacl
 yt-dlp
 google-genai
 python-dotenv
+dotenv
