@@ -167,7 +167,8 @@ class MyClient(discord.Client):
             fodidos = {
                 'calicute_': 'jamal.mp3',
                 'senhor_jp': 'amigo-boi.mp3',
-                'palmadinha': 'olhaeleae.mp3'
+                'palmadinha': 'olhaeleae.mp3',
+                'sharknaroki': 'pedrutema.mp3'
             }
             if (before.channel == None) and (membro in fodidos):                
                 # Connect to the voice channel
