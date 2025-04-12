@@ -97,7 +97,7 @@ class MyClient(discord.Client):
                     authorChannel = author.voice.channel
                     voice_channel = await authorChannel.connect()
 
-                    audio = FFmpegPCMAudio('jumpscare.mp3')
+                    audio = FFmpegPCMAudio('audios/jumpscare.mp3')
 
                     voice_channel.play(audio)
 
@@ -165,10 +165,11 @@ class MyClient(discord.Client):
         try:
             membro = member.name
             fodidos = {
-                'calicute_': 'jamal.mp3',
-                'senhor_jp': 'amigo-boi.mp3',
-                'palmadinha': 'olhaeleae.mp3',
-                'sharknaroki': 'pedrutema.mp3'
+                'calicute_': 'audios/jamal.mp3',
+                'senhor_jp': 'audios/amigo-boi.mp3',
+                'palmadinha': 'audios/olhaeleae.mp3',
+                'sharknaroki': 'audios/pedrutema.mp3',
+                'pixxiiii': 'audios/bagitema.mp3'
             }
             if (before.channel == None) and (membro in fodidos):                
                 # Connect to the voice channel
