@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import json
 import time
 import yt_dlp
+from datetime import datetime
+import pytz
 
 print('startin bot...')
 load_dotenv()
@@ -176,8 +178,17 @@ class MyClient(discord.Client):
                 channel = after.channel
                 vc = await channel.connect()
 
-                # Play the audio file
                 audio = FFmpegPCMAudio(fodidos[membro])
+                utc_minus_3 = pytz.timezone('Etc/GMT+3')
+                now = datetime.now(utc_minus_3)
+                
+                if (now.weekday() == 0):
+                    audio = FFmpegPCMAudio('audios/me-mata-de-uma-vez.mp3')
+                elif (now.weekday() == 4):
+                    audio = FFmpegPCMAudio('audios/sexta-feira.mp3')
+
+
+                # Play the audio file
                 vc.play(audio, after=lambda e: print("Finished playing"))
 
                 while vc.is_playing():
